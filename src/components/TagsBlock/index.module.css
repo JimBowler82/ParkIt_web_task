@@ -1,0 +1,16 @@
+.spanTag {
+  display: inline-block;
+  margin: 3px;
+  color: rgb(24, 86, 202);
+}
+
+.spanTag {
+  text-decoration: none;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.spanTag:hover {
+  color: #36c589;
+  cursor: pointer;
+}

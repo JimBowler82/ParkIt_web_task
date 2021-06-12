@@ -1,0 +1,14 @@
+.container {
+  width: 90%;
+  min-width: 400px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
