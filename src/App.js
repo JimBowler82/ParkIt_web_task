@@ -12,7 +12,7 @@ function App() {
   const { photoData, setPhotoData } = useDataContext();
 
   const fetchData = async () => {
-    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ee7b6802314ea1b40339f127d3b60210&text=bear&per_page=12&page=2&sort=relevance&format=json&nojsoncallback=1`;
+    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${process.env.REACT_APP_API_KEY}&text=bear&per_page=12&page=2&sort=relevance&format=json&nojsoncallback=1`;
 
     setLoading(true);
     try {

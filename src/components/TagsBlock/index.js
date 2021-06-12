@@ -8,7 +8,7 @@ function TagsBlock({ tags, setData }) {
   let url;
 
   function handleClick(tag) {
-    url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ee7b6802314ea1b40339f127d3b60210&text=${tag}&per_page=12&sort=relevance&format=json&nojsoncallback=1`;
+    url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${process.env.REACT_APP_API_KEY}&text=${tag}&per_page=12&sort=relevance&format=json&nojsoncallback=1`;
     fetchData(tag);
   }
 

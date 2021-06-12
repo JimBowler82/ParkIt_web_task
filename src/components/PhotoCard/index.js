@@ -7,7 +7,7 @@ function PhotoCard({ item, setData }) {
   const [photoData, setPhotoData] = useState({});
 
   const fetchData = async () => {
-    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=ee7b6802314ea1b40339f127d3b60210&photo_id=${item.id}&format=json&nojsoncallback=1`;
+    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${process.env.REACT_APP_API_KEY}&photo_id=${item.id}&format=json&nojsoncallback=1`;
 
     try {
       const response = await fetch(url);
