@@ -9,7 +9,10 @@ function Header() {
     <header className={styles.header}>
       <div className={styles.headings}>
         <h1>Flickr Photo Stream</h1>
-        <h2>Showing {photoData.topic} pictures </h2>
+        <h2>
+          Showing {photoData.topic} pictures{" "}
+          <small>({photoData.data.length})</small>
+        </h2>
       </div>
       <div className={styles.search}>
         <Search />

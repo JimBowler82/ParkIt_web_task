@@ -5,7 +5,10 @@ const DataContext = createContext();
 function reducer(state, action) {
   switch (action.type) {
     case "add":
-      return { ...state, data: { ...action.payload.data } };
+      return {
+        ...state,
+        data: [...state.data, ...action.payload.data],
+      };
     case "search":
       return {
         topic: action.payload.topic,
@@ -23,7 +26,7 @@ function reducer(state, action) {
 
 const initialState = {
   topic: "All",
-  data: {},
+  data: [],
 };
 
 export function DataProvider({ children }) {

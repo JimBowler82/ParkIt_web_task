@@ -9,4 +9,5 @@
 
 #root {
   background-color: #c8e5f3;
+  z-index: 0;
 }

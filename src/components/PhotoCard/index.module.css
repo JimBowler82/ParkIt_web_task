@@ -19,6 +19,8 @@
   padding: 10px;
   background-color: white;
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .photoDetails h3 {
@@ -36,4 +38,17 @@
 .photoDetails h4 {
   margin: 5px 0;
   font-weight: bold;
+}
+
+.photoDetails p {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+  max-height: 10rem;
+  flex: 1;
+  padding: 5px;
+}
+
+.photoDetails p::-webkit-scrollbar {
+  display: none;
 }

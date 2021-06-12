@@ -3,7 +3,7 @@ import styles from "./index.module.css";
 import TagsBlock from "../TagsBlock";
 import { Spinner } from "@chakra-ui/react";
 
-function PhotoCard({ item, setData }) {
+function PhotoCard({ item, setData, refProp = null }) {
   const [photoData, setPhotoData] = useState({});
 
   const fetchData = async () => {
@@ -26,18 +26,8 @@ function PhotoCard({ item, setData }) {
 
   return (
     <>
-      {!photoData.id && (
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="gray.200"
-          color="blue.500"
-          size="xl"
-        />
-      )}
-
       {photoData.id && (
-        <article className={styles.photocard}>
+        <article className={styles.photocard} ref={refProp}>
           <img
             src={`https://live.staticflickr.com/${photoData.server}/${photoData.id}_${photoData.secret}_w.jpg`}
             alt={item.author_id}
