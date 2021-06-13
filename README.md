@@ -45,3 +45,12 @@ Built with:
 ```
 
 - Project will be served to `localhost:3000`
+
+### Testing
+
+Testing has been started using React Testing Library .
+To run:
+
+```bash
+npm test
+```
