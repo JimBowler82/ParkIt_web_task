@@ -1,24 +1,23 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import styles from "./App.module.css";
 import Header from "./components/Header";
 import Loading from "./components/Loading";
 import PhotoCard from "./components/PhotoCard";
+import RecommendedQueries from "./components/RecommendedQueries";
 import useGetData from "./hooks/useGetData";
+import { v4 as uuidv4 } from "uuid";
 import { useDataContext } from "./context/dataContext";
 import { Alert } from "@chakra-ui/react";
 import { AlertIcon } from "@chakra-ui/react";
 
 function App() {
-  // const [loading, setLoading] = useState(true);
-  // const [data, setData] = useState([]);
-  //const [url, setUrl] = useState("");
-  const [query, setQuery] = useState("bears");
-  const { photoData, setPhotoData } = useDataContext();
+  const [query, setQuery] = useState("landscape");
   const [pageNumber, setPageNumber] = useState(1);
+  const { photoData } = useDataContext();
 
-  const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${process.env.REACT_APP_API_KEY}&text=${query}&per_page=20&page=${pageNumber}&sort=relevance&format=json&nojsoncallback=1`;
+  const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${process.env.REACT_APP_API_KEY}&text=${query}&safe_search=1&per_page=20&page=${pageNumber}&sort=relevance&format=json&nojsoncallback=1`;
 
-  const { hasMore, loading, error } = useGetData(url, pageNumber);
+  const { hasMore, loading, error } = useGetData(url, pageNumber, query);
 
   const observer = useRef();
   const lastPhotoRef = useCallback(
@@ -47,25 +46,33 @@ function App() {
     setPageNumber(1);
   }
 
-  useEffect(() => {
-    handleSearch("bears");
-  }, []);
-
   return (
     <main className={styles.container}>
-      <Header />
+      <Header handleSearch={handleSearch} />
 
       {loading && pageNumber === 1 && <Loading />}
 
       {photoData.data && (
         <section className={styles.content}>
+          <RecommendedQueries handleSearch={handleSearch} />
           {photoData.data.map((item, index) => {
             if (photoData.data.length === index + 1) {
               return (
-                <PhotoCard key={item.id} item={item} refProp={lastPhotoRef} />
+                <PhotoCard
+                  key={uuidv4()}
+                  item={item}
+                  refProp={lastPhotoRef}
+                  handleSearch={handleSearch}
+                />
               );
             }
-            return <PhotoCard key={item.id} item={item} />;
+            return (
+              <PhotoCard
+                key={uuidv4()}
+                item={item}
+                handleSearch={handleSearch}
+              />
+            );
           })}
           {loading && pageNumber > 2 && <Loading />}
         </section>

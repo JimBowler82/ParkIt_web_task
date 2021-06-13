@@ -1,12 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
+
 .header {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   min-height: 15vh;
-  width: 90%;
+  width: 100%;
   min-width: 400px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 20px 20px;
+  box-shadow: rgba(33, 35, 38, 0.3) 0px 10px 10px -10px;
 }
 
 .headings {
@@ -17,7 +20,10 @@
 }
 
 .headings h1 {
-  font-size: 2rem;
+  font-size: 3rem;
+  color: #ffffff;
+  font-family: "Josefin Sans", sans-serif;
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.856);
 }
 
 .headings h2 {
@@ -25,17 +31,19 @@
 }
 
 .search {
-  width: 30%;
-  min-width: 300px;
+  width: 40%;
+  min-width: 350px;
   align-self: flex-end;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 820px) {
   .header {
     justify-content: center;
   }
 
   .search {
     margin-top: 20px;
+    width: 80%;
+    min-width: 200px;
   }
 }

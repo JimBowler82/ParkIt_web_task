@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./index.module.css";
 import TagsBlock from "../TagsBlock";
-import { Spinner } from "@chakra-ui/react";
 
-function PhotoCard({ item, setData, refProp = null }) {
-  const [photoData, setPhotoData] = useState({});
+function PhotoCard({ item, refProp, handleSearch }) {
+  const [singlePhotoData, setSinglePhotoData] = useState({});
 
-  const fetchData = async () => {
+  const fetchSinglePhotoData = async () => {
     const url = `https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${process.env.REACT_APP_API_KEY}&photo_id=${item.id}&format=json&nojsoncallback=1`;
 
     try {
@@ -14,41 +13,49 @@ function PhotoCard({ item, setData, refProp = null }) {
 
       const data = await response.json();
 
-      setPhotoData(data.photo);
+      setSinglePhotoData(data.photo);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    fetchSinglePhotoData();
   }, [item]);
 
   return (
     <>
-      {photoData.id && (
+      {singlePhotoData.id && (
         <article className={styles.photocard} ref={refProp}>
           <img
-            src={`https://live.staticflickr.com/${photoData.server}/${photoData.id}_${photoData.secret}_w.jpg`}
+            src={`https://live.staticflickr.com/${singlePhotoData.server}/${singlePhotoData.id}_${singlePhotoData.secret}_w.jpg`}
             alt={item.author_id}
           />
           <div className={styles.photoDetails}>
             <h3>
               <a
-                href={`https://www.flickr.com/photos/${photoData.owner.nsid}/${photoData.id}`}
+                href={`https://www.flickr.com/photos/${singlePhotoData.owner.nsid}/${singlePhotoData.id}`}
               >
-                {photoData.title._content}
+                {singlePhotoData.title._content}
               </a>{" "}
               by{" "}
-              <a href={`https://www.flickr.com/people/${photoData.owner.nsid}`}>
-                {photoData.owner.username}
+              <a
+                href={`https://www.flickr.com/people/${singlePhotoData.owner.nsid}`}
+              >
+                {singlePhotoData.owner.username}
               </a>
             </h3>
             <h4>Description:</h4>
-            <p>{photoData.description._content || "No description provided"}</p>
-            <div>
+            <p>
+              {singlePhotoData.description._content ||
+                "No description provided"}
+            </p>
+            <div className={styles.tagsDiv}>
               <h4>Tags:</h4>
-              <TagsBlock tags={photoData.tags} setData={setData} />
+              <TagsBlock
+                tags={singlePhotoData.tags}
+                handleSearch={handleSearch}
+              />
             </div>
           </div>
         </article>

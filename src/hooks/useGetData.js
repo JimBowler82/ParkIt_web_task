@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDataContext } from "../context/dataContext";
+import { scrollAction, newQueryAction } from "../context/actions";
 
-export default function useGetData(url, pageNumber) {
+export default function useGetData(url, pageNumber, query) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [data, setData] = useState({});
   const [hasMore, setHasMore] = useState(false);
-  const { photoData, setPhotoData } = useDataContext();
+  const { setPhotoData } = useDataContext();
 
   async function getData() {
     try {
@@ -14,16 +14,15 @@ export default function useGetData(url, pageNumber) {
       setError(false);
 
       const response = await fetch(url);
-      const data = await response.json();
+      const results = await response.json();
 
-      setPhotoData({
-        type: "add",
-        payload: {
-          data: data.photos.photo,
-        },
-      });
+      if (pageNumber === 1) {
+        setPhotoData(newQueryAction(query, results));
+      } else {
+        setPhotoData(scrollAction(results));
+      }
 
-      setHasMore(data.photos.page < data.photos.pages);
+      setHasMore(results.photos.page < results.photos.pages);
       setLoading(false);
     } catch (err) {
       setError(err.message);

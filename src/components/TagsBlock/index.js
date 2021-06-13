@@ -1,39 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./index.module.css";
-import { useDataContext } from "../../context/dataContext";
 
-function TagsBlock({ tags, setData }) {
-  const { photoData, setPhotoData } = useDataContext();
-  const [click, setClick] = useState(false);
-  let url;
-
+function TagsBlock({ tags, handleSearch }) {
   function handleClick(tag) {
-    url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${process.env.REACT_APP_API_KEY}&text=${tag}&per_page=12&sort=relevance&format=json&nojsoncallback=1`;
-    fetchData(tag);
+    handleSearch(tag);
   }
-
-  const fetchData = async (tag) => {
-    try {
-      const response = await fetch(url);
-
-      const data = await response.json();
-      console.log(data);
-      setPhotoData({
-        type: "tag",
-        payload: {
-          topic: tag,
-          data,
-        },
-      });
-      //setData(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    console.log("Tags block rendered");
-  });
 
   return (
     <div>

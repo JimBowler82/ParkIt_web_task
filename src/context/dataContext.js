@@ -4,20 +4,15 @@ const DataContext = createContext();
 
 function reducer(state, action) {
   switch (action.type) {
-    case "add":
+    case "new_query":
+      return {
+        topic: action.payload.topic,
+        data: [...action.payload.data],
+      };
+    case "scroll":
       return {
         ...state,
         data: [...state.data, ...action.payload.data],
-      };
-    case "search":
-      return {
-        topic: action.payload.topic,
-        data: { ...action.payload.data },
-      };
-    case "tag":
-      return {
-        topic: action.payload.topic,
-        data: { ...action.payload.data },
       };
     default:
       return state;
