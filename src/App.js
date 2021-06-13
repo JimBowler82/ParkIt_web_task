@@ -59,7 +59,7 @@ function App() {
             if (photoData.data.length === index + 1) {
               return (
                 <PhotoCard
-                  key={uuidv4()}
+                  key={index}
                   item={item}
                   refProp={lastPhotoRef}
                   handleSearch={handleSearch}
@@ -67,11 +67,7 @@ function App() {
               );
             }
             return (
-              <PhotoCard
-                key={uuidv4()}
-                item={item}
-                handleSearch={handleSearch}
-              />
+              <PhotoCard key={index} item={item} handleSearch={handleSearch} />
             );
           })}
           {loading && pageNumber > 2 && <Loading />}
